@@ -1,0 +1,428 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0E5F19251561E5780008678E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E5F19241561E5780008678E /* UIKit.framework */; };
+		0E5F19271561E5780008678E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E5F19261561E5780008678E /* Foundation.framework */; };
+		0E5F19291561E5780008678E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E5F19281561E5780008678E /* CoreGraphics.framework */; };
+		0E5F192F1561E5780008678E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0E5F192D1561E5780008678E /* InfoPlist.strings */; };
+		0E5F19311561E5780008678E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5F19301561E5780008678E /* main.m */; };
+		0E5F19351561E5780008678E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5F19341561E5780008678E /* AppDelegate.m */; };
+		0E5F193D1561E5780008678E /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E5F193C1561E5780008678E /* SenTestingKit.framework */; };
+		0E5F193E1561E5780008678E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E5F19241561E5780008678E /* UIKit.framework */; };
+		0E5F193F1561E5780008678E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E5F19261561E5780008678E /* Foundation.framework */; };
+		0E5F19471561E5790008678E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0E5F19451561E5790008678E /* InfoPlist.strings */; };
+		0E5F194A1561E5790008678E /* sketchiTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5F19491561E5790008678E /* sketchiTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		0E5F19401561E5780008678E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0E5F19171561E5780008678E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0E5F191F1561E5780008678E;
+			remoteInfo = sketchi;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0E5F19201561E5780008678E /* sketchi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sketchi.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0E5F19241561E5780008678E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		0E5F19261561E5780008678E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		0E5F19281561E5780008678E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		0E5F192C1561E5780008678E /* sketchi-Info.plist */ = {isa = PBXFileReference; path = "sketchi-Info.plist"; sourceTree = "<group>"; };
+		0E5F192E1561E5780008678E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		0E5F19301561E5780008678E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		0E5F19321561E5780008678E /* sketchi-Prefix.pch */ = {isa = PBXFileReference; path = "sketchi-Prefix.pch"; sourceTree = "<group>"; };
+		0E5F19331561E5780008678E /* AppDelegate.h */ = {isa = PBXFileReference; path = AppDelegate.h; sourceTree = "<group>"; };
+		0E5F19341561E5780008678E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		0E5F193B1561E5780008678E /* sketchiTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = sketchiTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0E5F193C1561E5780008678E /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		0E5F19441561E5780008678E /* sketchiTests-Info.plist */ = {isa = PBXFileReference; path = "sketchiTests-Info.plist"; sourceTree = "<group>"; };
+		0E5F19461561E5790008678E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		0E5F19481561E5790008678E /* sketchiTests.h */ = {isa = PBXFileReference; path = sketchiTests.h; sourceTree = "<group>"; };
+		0E5F19491561E5790008678E /* sketchiTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = sketchiTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0E5F191D1561E5780008678E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E5F19251561E5780008678E /* UIKit.framework in Frameworks */,
+				0E5F19271561E5780008678E /* Foundation.framework in Frameworks */,
+				0E5F19291561E5780008678E /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0E5F19371561E5780008678E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E5F193D1561E5780008678E /* SenTestingKit.framework in Frameworks */,
+				0E5F193E1561E5780008678E /* UIKit.framework in Frameworks */,
+				0E5F193F1561E5780008678E /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0E5F19151561E5780008678E = {
+			isa = PBXGroup;
+			children = (
+				0E5F192A1561E5780008678E /* sketchi */,
+				0E5F19421561E5780008678E /* sketchiTests */,
+				0E5F19231561E5780008678E /* Frameworks */,
+				0E5F19211561E5780008678E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		0E5F19211561E5780008678E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0E5F19201561E5780008678E /* sketchi.app */,
+				0E5F193B1561E5780008678E /* sketchiTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0E5F19231561E5780008678E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0E5F19241561E5780008678E /* UIKit.framework */,
+				0E5F19261561E5780008678E /* Foundation.framework */,
+				0E5F19281561E5780008678E /* CoreGraphics.framework */,
+				0E5F193C1561E5780008678E /* SenTestingKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		0E5F192A1561E5780008678E /* sketchi */ = {
+			isa = PBXGroup;
+			children = (
+				0E5F19331561E5780008678E /* AppDelegate.h */,
+				0E5F19341561E5780008678E /* AppDelegate.m */,
+				0E5F192B1561E5780008678E /* Supporting Files */,
+			);
+			path = sketchi;
+			sourceTree = "<group>";
+		};
+		0E5F192B1561E5780008678E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				0E5F192C1561E5780008678E /* sketchi-Info.plist */,
+				0E5F192D1561E5780008678E /* InfoPlist.strings */,
+				0E5F19301561E5780008678E /* main.m */,
+				0E5F19321561E5780008678E /* sketchi-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0E5F19421561E5780008678E /* sketchiTests */ = {
+			isa = PBXGroup;
+			children = (
+				0E5F19481561E5790008678E /* sketchiTests.h */,
+				0E5F19491561E5790008678E /* sketchiTests.m */,
+				0E5F19431561E5780008678E /* Supporting Files */,
+			);
+			path = sketchiTests;
+			sourceTree = "<group>";
+		};
+		0E5F19431561E5780008678E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				0E5F19441561E5780008678E /* sketchiTests-Info.plist */,
+				0E5F19451561E5790008678E /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0E5F191F1561E5780008678E /* sketchi */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0E5F194D1561E5790008678E /* Build configuration list for PBXNativeTarget "sketchi" */;
+			buildPhases = (
+				0E5F191C1561E5780008678E /* Sources */,
+				0E5F191D1561E5780008678E /* Frameworks */,
+				0E5F191E1561E5780008678E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = sketchi;
+			productName = sketchi;
+			productReference = 0E5F19201561E5780008678E /* sketchi.app */;
+			productType = "com.apple.product-type.application";
+		};
+		0E5F193A1561E5780008678E /* sketchiTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0E5F19501561E5790008678E /* Build configuration list for PBXNativeTarget "sketchiTests" */;
+			buildPhases = (
+				0E5F19361561E5780008678E /* Sources */,
+				0E5F19371561E5780008678E /* Frameworks */,
+				0E5F19381561E5780008678E /* Resources */,
+				0E5F19391561E5780008678E /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0E5F19411561E5780008678E /* PBXTargetDependency */,
+			);
+			name = sketchiTests;
+			productName = sketchiTests;
+			productReference = 0E5F193B1561E5780008678E /* sketchiTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0E5F19171561E5780008678E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+			};
+			buildConfigurationList = 0E5F191A1561E5780008678E /* Build configuration list for PBXProject "sketchi" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 0E5F19151561E5780008678E;
+			productRefGroup = 0E5F19211561E5780008678E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0E5F191F1561E5780008678E /* sketchi */,
+				0E5F193A1561E5780008678E /* sketchiTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0E5F191E1561E5780008678E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E5F192F1561E5780008678E /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0E5F19381561E5780008678E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E5F19471561E5790008678E /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0E5F19391561E5780008678E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0E5F191C1561E5780008678E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E5F19311561E5780008678E /* main.m in Sources */,
+				0E5F19351561E5780008678E /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0E5F19361561E5780008678E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E5F194A1561E5790008678E /* sketchiTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		0E5F19411561E5780008678E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0E5F191F1561E5780008678E /* sketchi */;
+			targetProxy = 0E5F19401561E5780008678E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		0E5F192D1561E5780008678E /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0E5F192E1561E5780008678E /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		0E5F19451561E5790008678E /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0E5F19461561E5790008678E /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		0E5F194B1561E5790008678E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		0E5F194C1561E5790008678E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		0E5F194E1561E5790008678E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "sketchi/sketchi-Prefix.pch";
+				INFOPLIST_FILE = "sketchi/sketchi-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		0E5F194F1561E5790008678E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "sketchi/sketchi-Prefix.pch";
+				INFOPLIST_FILE = "sketchi/sketchi-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		0E5F19511561E5790008678E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/sketchi.app/sketchi";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "sketchi/sketchi-Prefix.pch";
+				INFOPLIST_FILE = "sketchiTests/sketchiTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		0E5F19521561E5790008678E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/sketchi.app/sketchi";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "sketchi/sketchi-Prefix.pch";
+				INFOPLIST_FILE = "sketchiTests/sketchiTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0E5F191A1561E5780008678E /* Build configuration list for PBXProject "sketchi" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0E5F194B1561E5790008678E /* Debug */,
+				0E5F194C1561E5790008678E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0E5F194D1561E5790008678E /* Build configuration list for PBXNativeTarget "sketchi" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0E5F194E1561E5790008678E /* Debug */,
+				0E5F194F1561E5790008678E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		0E5F19501561E5790008678E /* Build configuration list for PBXNativeTarget "sketchiTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0E5F19511561E5790008678E /* Debug */,
+				0E5F19521561E5790008678E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0E5F19171561E5780008678E /* Project object */;
+}
