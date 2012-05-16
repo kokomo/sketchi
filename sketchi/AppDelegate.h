@@ -8,8 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@class sketchiViewController;
 
-@property (strong, nonatomic) UIWindow *window;
+@interface AppDelegate : UIResponder <UIApplicationDelegate> {
+    UIWindow *window;
+    sketchiViewController *viewController;
+    
+}
+
+@property (nonatomic, retain) IBOutlet UIWindow *window;
+@property (nonatomic, retain) IBOutlet sketchiViewController *viewController;
 
 @end

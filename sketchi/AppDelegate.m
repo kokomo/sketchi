@@ -7,17 +7,20 @@
 //
 
 #import "AppDelegate.h"
+#import "sketchiViewController.h"
 
 @implementation AppDelegate
 
-@synthesize window = _window;
+@synthesize window;
+@synthesize viewController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    //self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor whiteColor];
-    [self.window makeKeyAndVisible];
+    //self.window.backgroundColor = [UIColor whiteColor];
+    [window addSubview:viewController.view];
+    [window makeKeyAndVisible];
     return YES;
 }
 

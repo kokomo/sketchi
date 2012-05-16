@@ -18,6 +18,9 @@
 		0E5F193F1561E5780008678E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E5F19261561E5780008678E /* Foundation.framework */; };
 		0E5F19471561E5790008678E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0E5F19451561E5790008678E /* InfoPlist.strings */; };
 		0E5F194A1561E5790008678E /* sketchiTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5F19491561E5790008678E /* sketchiTests.m */; };
+		0E5F195E1561E8CA0008678E /* sketchiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5F195D1561E8CA0008678E /* sketchiViewController.m */; };
+		0E5F19681561F2A30008678E /* sketchiViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E5F19671561F2A30008678E /* sketchiViewController.xib */; };
+		0E5F196A1561F2AC0008678E /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E5F19691561F2AC0008678E /* MainWindow.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,18 +38,22 @@
 		0E5F19241561E5780008678E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		0E5F19261561E5780008678E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0E5F19281561E5780008678E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		0E5F192C1561E5780008678E /* sketchi-Info.plist */ = {isa = PBXFileReference; path = "sketchi-Info.plist"; sourceTree = "<group>"; };
+		0E5F192C1561E5780008678E /* sketchi-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "sketchi-Info.plist"; sourceTree = "<group>"; };
 		0E5F192E1561E5780008678E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0E5F19301561E5780008678E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		0E5F19321561E5780008678E /* sketchi-Prefix.pch */ = {isa = PBXFileReference; path = "sketchi-Prefix.pch"; sourceTree = "<group>"; };
-		0E5F19331561E5780008678E /* AppDelegate.h */ = {isa = PBXFileReference; path = AppDelegate.h; sourceTree = "<group>"; };
+		0E5F19321561E5780008678E /* sketchi-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "sketchi-Prefix.pch"; sourceTree = "<group>"; };
+		0E5F19331561E5780008678E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0E5F19341561E5780008678E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		0E5F193B1561E5780008678E /* sketchiTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = sketchiTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E5F193C1561E5780008678E /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		0E5F19441561E5780008678E /* sketchiTests-Info.plist */ = {isa = PBXFileReference; path = "sketchiTests-Info.plist"; sourceTree = "<group>"; };
+		0E5F19441561E5780008678E /* sketchiTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "sketchiTests-Info.plist"; sourceTree = "<group>"; };
 		0E5F19461561E5790008678E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		0E5F19481561E5790008678E /* sketchiTests.h */ = {isa = PBXFileReference; path = sketchiTests.h; sourceTree = "<group>"; };
+		0E5F19481561E5790008678E /* sketchiTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sketchiTests.h; sourceTree = "<group>"; };
 		0E5F19491561E5790008678E /* sketchiTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = sketchiTests.m; sourceTree = "<group>"; };
+		0E5F195C1561E7900008678E /* sketchiViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sketchiViewController.h; sourceTree = "<group>"; };
+		0E5F195D1561E8CA0008678E /* sketchiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = sketchiViewController.m; sourceTree = "<group>"; };
+		0E5F19671561F2A30008678E /* sketchiViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = sketchiViewController.xib; sourceTree = "<group>"; };
+		0E5F19691561F2AC0008678E /* MainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +115,8 @@
 			children = (
 				0E5F19331561E5780008678E /* AppDelegate.h */,
 				0E5F19341561E5780008678E /* AppDelegate.m */,
+				0E5F195C1561E7900008678E /* sketchiViewController.h */,
+				0E5F195D1561E8CA0008678E /* sketchiViewController.m */,
 				0E5F192B1561E5780008678E /* Supporting Files */,
 			);
 			path = sketchi;
@@ -116,6 +125,8 @@
 		0E5F192B1561E5780008678E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				0E5F19671561F2A30008678E /* sketchiViewController.xib */,
+				0E5F19691561F2AC0008678E /* MainWindow.xib */,
 				0E5F192C1561E5780008678E /* sketchi-Info.plist */,
 				0E5F192D1561E5780008678E /* InfoPlist.strings */,
 				0E5F19301561E5780008678E /* main.m */,
@@ -214,6 +225,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				0E5F192F1561E5780008678E /* InfoPlist.strings in Resources */,
+				0E5F19681561F2A30008678E /* sketchiViewController.xib in Resources */,
+				0E5F196A1561F2AC0008678E /* MainWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -250,6 +263,7 @@
 			files = (
 				0E5F19311561E5780008678E /* main.m in Sources */,
 				0E5F19351561E5780008678E /* AppDelegate.m in Sources */,
+				0E5F195E1561E8CA0008678E /* sketchiViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
