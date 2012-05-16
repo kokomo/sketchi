@@ -10,8 +10,12 @@
 
 @implementation sketchiViewController
 
+@synthesize menu;
+@synthesize saveImage;
+
 - (void) viewDidLoad {
     [super viewDidLoad];
+    [saveImage addTarget:self action:@selector(myButtonClick:) forControlEvents:(UIControlEvents)UIControlEventTouchDown];
     drawImage = [[UIImageView alloc] initWithImage:nil];
     drawImage.frame = self.view.frame;
     [self.view addSubview:drawImage];
@@ -25,6 +29,7 @@
     rmin = false;
     bmin = true;
     gmin = true;
+    cyclic = true;
 }
 
 -(void)touchesBegan:(NSSet *) touches withEvent:(UIEvent *)event {
@@ -32,34 +37,36 @@
     mouseSwiped = NO;
     UITouch *touch = [touches anyObject];
     
-    if([touch tapCount] == 7){
+    if([touch tapCount] == 4){
         drawImage.image = nil;
         return;
     }
-    if([touch tapCount] == 5){
+    lastPoint = [touch locationInView:self.view];
+	lastPoint.y -= 20;
+}
+
+-(void) myButtonClick:(id)sender {
+
         UIGraphicsBeginImageContext(CGSizeMake(320,480));
         CGContextRef context = UIGraphicsGetCurrentContext();
         [self.view.layer renderInContext:context];
         UIImage *screenShot = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
         UIImageWriteToSavedPhotosAlbum(screenShot, nil, nil, nil); 
-        
-    }
-    lastPoint = [touch locationInView:self.view];
-	lastPoint.y -= 35;
-}
-
     
-    -(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
-        //double r = 0,g = 0,b = 1.0;
-        
+
+}
+    
+-(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+    //double r = 0,g = 0,b = 1.0;
+    if(cyclic){
         if(bmax && !rmax && gmin){
             r +=0.01;
             rmin = false;
             if(r >= 1.0){
                 rmax = true;
             }
-            }
+        }
         
         if(!bmin && rmax && gmin){
             b -=0.01;
@@ -72,8 +79,8 @@
             g +=0.01;
             gmin = false;
             if(g >= 1.0){
-            gmax = true;
-        }
+                gmax = true;
+            }
         }
         if(bmin && !rmin && gmax){
             r -=0.01;
@@ -96,32 +103,32 @@
                 gmin = true;
             }
         }
-        
-        mouseSwiped = YES;
-        UITouch *touch = [touches anyObject];	
-        CGPoint currentPoint = [touch locationInView:self.view];
-        currentPoint.y -= 35; // only for 'kCGLineCapRound'
-        UIGraphicsBeginImageContext(self.view.frame.size);
-        [drawImage.image drawInRect:CGRectMake(0, 0, drawImage.frame.size.width, drawImage.frame.size.height)]; //originally self.frame.size.width, self.frame.size.height)];
-        CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapButt); //kCGLineCapSquare, kCGLineCapButt, kCGLineCapRound
-        CGContextSetLineWidth(UIGraphicsGetCurrentContext(), 10.0); // for size
-        CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext(), r, g, b, 1.0); //values for R, G, B, and Alpha
-        CGContextBeginPath(UIGraphicsGetCurrentContext());
-        CGContextMoveToPoint(UIGraphicsGetCurrentContext(), lastPoint.x, lastPoint.y);
-        CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), currentPoint.x, currentPoint.y);
-        CGContextStrokePath(UIGraphicsGetCurrentContext());
-        drawImage.image = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-        
-        lastPoint = currentPoint;
-        
-        mouseMoved++;
-        
-        if (mouseMoved == 10) {
-            mouseMoved = 0;
-        }
-        
     }
+    mouseSwiped = YES;
+    UITouch *touch = [touches anyObject];	
+    CGPoint currentPoint = [touch locationInView:self.view];
+    currentPoint.y -= 20; // only for 'kCGLineCapRound'
+    UIGraphicsBeginImageContext(self.view.frame.size);
+    [drawImage.image drawInRect:CGRectMake(0, 0, drawImage.frame.size.width, drawImage.frame.size.height)]; //originally self.frame.size.width, self.frame.size.height)];
+    CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound); //kCGLineCapSquare, kCGLineCapButt, kCGLineCapRound
+    CGContextSetLineWidth(UIGraphicsGetCurrentContext(), 10.0); // for size
+    CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext(), r, g, b, 1.0); //values for R, G, B, and Alpha
+    CGContextBeginPath(UIGraphicsGetCurrentContext());
+    CGContextMoveToPoint(UIGraphicsGetCurrentContext(), lastPoint.x, lastPoint.y);
+    CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), currentPoint.x, currentPoint.y);
+    CGContextStrokePath(UIGraphicsGetCurrentContext());
+    drawImage.image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    lastPoint = currentPoint;
+    
+    mouseMoved++;
+    
+    if (mouseMoved == 10) {
+        mouseMoved = 0;
+    }
+    
+}
     
     - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
         

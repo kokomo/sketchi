@@ -11,6 +11,7 @@
 
 @interface sketchiViewController : UIViewController {
     UIImageView *drawImage;
+    IBOutlet UIButton *menu, *saveImage;
     int mouseMoved;
     BOOL mouseSwiped, rmax, gmax, bmax, bmin, gmin, rmin, cyclic;
     CGPoint lastPoint;
@@ -18,5 +19,5 @@
     double r;
     double g;
 }
-
+@property (nonatomic,retain) UIButton *menu, *saveImage;
 @end
