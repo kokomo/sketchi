@@ -24,6 +24,8 @@
 		0EEE7FBA15636D1800978FA2 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 0EEE7FB915636D1800978FA2 /* Default.png */; };
 		0EEE7FBD15636D1A00978FA2 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0EEE7FBC15636D1A00978FA2 /* Default@2x.png */; };
 		0EFCDD34156496E60031C071 /* round line.png in Resources */ = {isa = PBXBuildFile; fileRef = 0EFCDD33156496E60031C071 /* round line.png */; };
+		0EFCDD3F1564BFB60031C071 /* type2.png in Resources */ = {isa = PBXBuildFile; fileRef = 0EFCDD3D1564BFB60031C071 /* type2.png */; };
+		0EFCDD401564BFB60031C071 /* type3.png in Resources */ = {isa = PBXBuildFile; fileRef = 0EFCDD3E1564BFB60031C071 /* type3.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +62,8 @@
 		0EEE7FB915636D1800978FA2 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		0EEE7FBC15636D1A00978FA2 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		0EFCDD33156496E60031C071 /* round line.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "round line.png"; sourceTree = "<group>"; };
+		0EFCDD3D1564BFB60031C071 /* type2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = type2.png; sourceTree = SOURCE_ROOT; };
+		0EFCDD3E1564BFB60031C071 /* type3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = type3.png; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +95,8 @@
 			children = (
 				0EEE7FBC15636D1A00978FA2 /* Default@2x.png */,
 				0EFCDD33156496E60031C071 /* round line.png */,
+				0EFCDD3D1564BFB60031C071 /* type2.png */,
+				0EFCDD3E1564BFB60031C071 /* type3.png */,
 				0EEE7FB915636D1800978FA2 /* Default.png */,
 				0E5F192A1561E5780008678E /* sketchi */,
 				0E5F19421561E5780008678E /* sketchiTests */,
@@ -239,6 +245,8 @@
 				0EEE7FBA15636D1800978FA2 /* Default.png in Resources */,
 				0EEE7FBD15636D1A00978FA2 /* Default@2x.png in Resources */,
 				0EFCDD34156496E60031C071 /* round line.png in Resources */,
+				0EFCDD3F1564BFB60031C071 /* type2.png in Resources */,
+				0EFCDD401564BFB60031C071 /* type3.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
