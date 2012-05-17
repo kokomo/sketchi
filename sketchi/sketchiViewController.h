@@ -10,14 +10,14 @@
 #import <QuartzCore/QuartzCore.h>
 
 @interface sketchiViewController : UIViewController {
-    UIImageView *drawImage;
-    IBOutlet UIButton *menu, *saveImage;
-    int mouseMoved;
-    BOOL mouseSwiped, rmax, gmax, bmax, bmin, gmin, rmin, cyclic;
+    UIImageView *drawImage, *menuScreen;
+    IBOutlet UIButton *menu, *saveImage, *clear, *back, *brushOptionButton, *brush1, *brush2, *brush3 ;
+    int mouseMoved, brushOption;
+    BOOL mouseSwiped, rmax, gmax, bmax, bmin, gmin, rmin, cyclic, tiltDraw;
     CGPoint lastPoint;
     double b;
     double r;
     double g;
 }
-@property (nonatomic,retain) UIButton *menu, *saveImage;
+@property (nonatomic,retain) UIButton *menu, *saveImage, *clear, *back, *brushOptionButton, *brush1, *brush2, *brush3 ;
 @end

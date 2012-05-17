@@ -12,10 +12,20 @@
 
 @synthesize menu;
 @synthesize saveImage;
+@synthesize clear;
+@synthesize back;
+@synthesize brushOptionButton;
+@synthesize brush1;
+@synthesize brush2;
+@synthesize brush3;
 
 - (void) viewDidLoad {
     [super viewDidLoad];
-    [saveImage addTarget:self action:@selector(myButtonClick:) forControlEvents:(UIControlEvents)UIControlEventTouchDown];
+    [saveImage addTarget:self action:@selector(saveButtonClick:) forControlEvents:(UIControlEvents)UIControlEventTouchDown];
+    [clear addTarget:self action:@selector(clearButtonClick:) forControlEvents:(UIControlEvents)UIControlEventTouchDown];
+    [menu addTarget:self action:@selector(menuButtonClick:) forControlEvents:(UIControlEvents)UIControlEventTouchDown];
+    [back addTarget:self action:@selector(backButtonClick:) forControlEvents:(UIControlEvents)UIControlEventTouchDown];
+    [brushOptionButton addTarget:self action:@selector(brushOptionClick) forControlEvents:(UIControlEvents)UIControlEventTouchDown];
     drawImage = [[UIImageView alloc] initWithImage:nil];
     drawImage.frame = self.view.frame;
     [self.view addSubview:drawImage];
@@ -30,22 +40,51 @@
     bmin = true;
     gmin = true;
     cyclic = true;
+    back.hidden = 1;
+    brushOption = 0;
+    brushOptionButton.hidden = 1;
 }
 
 -(void)touchesBegan:(NSSet *) touches withEvent:(UIEvent *)event {
     
     mouseSwiped = NO;
     UITouch *touch = [touches anyObject];
-    
-    if([touch tapCount] == 4){
-        drawImage.image = nil;
-        return;
-    }
     lastPoint = [touch locationInView:self.view];
 	lastPoint.y -= 20;
 }
 
--(void) myButtonClick:(id)sender {
+-(void) brushOptionClick:(id)sender{
+    brush1.hidden = 0;
+    
+    
+}
+-(void) backButtonClick:(id)sender{
+    
+    drawImage.hidden = 0;
+    menu.hidden = 0;
+    saveImage.hidden = 0;
+    clear.hidden = 0;
+    back.hidden = 1;
+    brushOptionButton.hidden = 1;
+    
+}
+
+-(void) menuButtonClick:(id)sender{
+    
+    drawImage.hidden = 1;
+    menu.hidden = 1;
+    saveImage.hidden = 1;
+    clear.hidden = 1;
+    back.hidden = 0;
+    brushOptionButton.hidden = 0;
+}
+
+-(void) clearButtonClick:(id)sender {
+    drawImage.image = nil;
+    return;
+}
+
+-(void) saveButtonClick:(id)sender {
 
         UIGraphicsBeginImageContext(CGSizeMake(320,480));
         CGContextRef context = UIGraphicsGetCurrentContext();
@@ -58,7 +97,8 @@
 }
     
 -(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
-    //double r = 0,g = 0,b = 1.0;
+    
+    if(!drawImage.hidden){
     if(cyclic){
         if(bmax && !rmax && gmin){
             r +=0.01;
@@ -127,9 +167,9 @@
     if (mouseMoved == 10) {
         mouseMoved = 0;
     }
-    
+    }
 }
-    
+   /* 
     - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
         
         UITouch *touch = [touches anyObject];
@@ -153,7 +193,7 @@
             UIGraphicsEndImageContext();
         }
     }
-    
+    */
     - (void)didReceiveMemoryWarning {
         // Releases the view if it doesn't have a superview.
         [super didReceiveMemoryWarning];
