@@ -34,7 +34,7 @@
     [super viewDidLoad];
     drawImage = [[UIImageView alloc] initWithImage:nil];
     selectionLayer = [[UIImageView alloc] initWithImage:nil];
-    drawImage.frame = CGRectMake(0,36,self.view.frame.size.width, self.view.frame.size.height-36);
+    drawImage.frame = CGRectMake(10,36,self.view.frame.size.width-20, (self.view.frame.size.height-46));
     drawImage.backgroundColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:1];
     [self.view addSubview:drawImage];
     mouseMoved = 0;
@@ -87,17 +87,31 @@
     [self.view addSubview:tiltMenu.view];
 }
 
--(IBAction)brushType0:(id)sender{
-    brushOption = 0;
+-(IBAction)brushType:(id)sender{
+    if(brush1.self == sender){
+        brushOption = 0;
+        //[brush1 setBackgroundImage:drawImage.image forState:UIControlStateNormal];
+        [brush1 setHighlighted:true];
+        [brush2 setHighlighted:false];
+        [brush3 setHighlighted:false];
+        
+    }
+    if(brush2.self == sender){
+        brushOption = 1;
+        [brush1 setHighlighted:false];
+        [brush2 setHighlighted:true];
+        [brush3 setHighlighted:false];
+        
+    }
+    if(brush3.self == sender){
+        brushOption = 2;
+        [brush1 setHighlighted:false];
+        [brush2 setHighlighted:false];
+        [brush3 setHighlighted:true];
+    }
 }
 
--(IBAction)brushType1:(id)sender{
-    brushOption = 1;
-}
 
--(IBAction)brushType2:(id)sender{
-    brushOption = 2;
-}
 
 -(IBAction)backToDrawing:(id)sender{
     if(backToDrawingBrushMenu.self == sender){
@@ -216,26 +230,35 @@
 }
 
 -(IBAction) saveButtonClick:(id)sender {
-
-        UIGraphicsBeginImageContext(CGSizeMake(320,444));
+/*
+        UIGraphicsBeginImageContext(drawImage.frame.size);
         CGContextRef context = UIGraphicsGetCurrentContext();
-        [self.view.layer renderInContext:context];
+        [drawImage.layer renderInContext:context];
         UIImage *screenShot = UIGraphicsGetImageFromCurrentImageContext();
-        CGRect rect = CGRectMake(0, 36, self.view.frame.size.width, self.view.frame.size.height-36);
+    / *
+        CGRect rect = drawImage.frame;
         screenShot = [self crop:rect :screenShot];
         UIGraphicsEndImageContext();
-        UIImageWriteToSavedPhotosAlbum(screenShot, nil, nil, nil); 
-    
+         */
+    UIImageWriteToSavedPhotosAlbum(drawImage.image, nil, nil, nil); 
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Drawing Saved"
+                                                    message:@"Your drawing has been saved to the photo album."
+                                                   delegate:nil
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
 
 }
 
+
+
 -(UIImage *) crop:(CGRect)rect:(UIImage *)image{
-    CGFloat scale = [[UIScreen mainScreen] scale];
+    /*CGFloat scale = [[UIScreen mainScreen] scale];
     
     if (scale>1.0) {        
         rect = CGRectMake(rect.origin.x*scale , rect.origin.y*scale, rect.size.width*scale, rect.size.height*scale);        
     }
-    
+    */
     CGImageRef imageRef = CGImageCreateWithImageInRect([image CGImage], rect);
     UIImage *result = [UIImage imageWithCGImage:imageRef]; 
     CGImageRelease(imageRef);

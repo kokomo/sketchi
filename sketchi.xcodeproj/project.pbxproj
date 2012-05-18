@@ -22,6 +22,7 @@
 		0E5F195E1561E8CA0008678E /* sketchiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E5F195D1561E8CA0008678E /* sketchiViewController.m */; };
 		0E5F19681561F2A30008678E /* sketchiViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E5F19671561F2A30008678E /* sketchiViewController.xib */; };
 		0E5F196A1561F2AC0008678E /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E5F19691561F2AC0008678E /* MainWindow.xib */; };
+		0E9DB82B15661349007EE889 /* round line highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E9DB82A15661349007EE889 /* round line highlighted.png */; };
 		0EEE7FBA15636D1800978FA2 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 0EEE7FB915636D1800978FA2 /* Default.png */; };
 		0EEE7FBD15636D1A00978FA2 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0EEE7FBC15636D1A00978FA2 /* Default@2x.png */; };
 		0EFCDD34156496E60031C071 /* round line.png in Resources */ = {isa = PBXBuildFile; fileRef = 0EFCDD33156496E60031C071 /* round line.png */; };
@@ -61,6 +62,7 @@
 		0E5F195D1561E8CA0008678E /* sketchiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = sketchiViewController.m; sourceTree = "<group>"; };
 		0E5F19671561F2A30008678E /* sketchiViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = sketchiViewController.xib; sourceTree = "<group>"; };
 		0E5F19691561F2AC0008678E /* MainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
+		0E9DB82A15661349007EE889 /* round line highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "round line highlighted.png"; sourceTree = SOURCE_ROOT; };
 		0EEE7FB915636D1800978FA2 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		0EEE7FBC15636D1A00978FA2 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		0EFCDD33156496E60031C071 /* round line.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "round line.png"; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 				0EEE7FBC15636D1A00978FA2 /* Default@2x.png */,
 				0EFCDD33156496E60031C071 /* round line.png */,
 				0EFCDD3D1564BFB60031C071 /* type2.png */,
+				0E9DB82A15661349007EE889 /* round line highlighted.png */,
 				0EFCDD3E1564BFB60031C071 /* type3.png */,
 				0E18F7491565B92200D5A067 /* iOS Simulator Screen shot May 18, 2012 10.51.52 AM.png */,
 				0EEE7FB915636D1800978FA2 /* Default.png */,
@@ -251,6 +254,7 @@
 				0EFCDD3F1564BFB60031C071 /* type2.png in Resources */,
 				0EFCDD401564BFB60031C071 /* type3.png in Resources */,
 				0E18F74A1565B92200D5A067 /* iOS Simulator Screen shot May 18, 2012 10.51.52 AM.png in Resources */,
+				0E9DB82B15661349007EE889 /* round line highlighted.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

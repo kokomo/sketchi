@@ -38,8 +38,6 @@
 -(IBAction) tiltSwitchClick:(id)sender;
 -(IBAction) colourSlider:(id)sender;
 -(IBAction) backToDrawing:(id)sender;
--(IBAction) brushType0:(id)sender;
--(IBAction) brushType1:(id)sender;
--(IBAction) brushType2:(id)sender;
+-(IBAction) brushType:(id)sender;
 -(void) changeColour;
 @end
