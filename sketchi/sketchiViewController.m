@@ -298,6 +298,7 @@
 
 -(void) drawLine:(int)x:(int)y{
     
+    //UIGraphicsBeginImageContext(self.view.frame.size); //weird bug mode - comment out next line 
     UIGraphicsBeginImageContext(drawImage.frame.size);
     [drawImage.image drawInRect:CGRectMake(0, 0, drawImage.frame.size.width, drawImage.frame.size.height)]; //originally self.frame.size.width, self.frame.size.height)];
     if(brushOption == 0){
