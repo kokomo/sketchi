@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E18F74A1565B92200D5A067 /* iOS Simulator Screen shot May 18, 2012 10.51.52 AM.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E18F7491565B92200D5A067 /* iOS Simulator Screen shot May 18, 2012 10.51.52 AM.png */; };
 		0E5F19251561E5780008678E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E5F19241561E5780008678E /* UIKit.framework */; };
 		0E5F19271561E5780008678E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E5F19261561E5780008678E /* Foundation.framework */; };
 		0E5F19291561E5780008678E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E5F19281561E5780008678E /* CoreGraphics.framework */; };
@@ -39,6 +40,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0E18F7491565B92200D5A067 /* iOS Simulator Screen shot May 18, 2012 10.51.52 AM.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iOS Simulator Screen shot May 18, 2012 10.51.52 AM.png"; sourceTree = SOURCE_ROOT; };
 		0E5F19201561E5780008678E /* sketchi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sketchi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E5F19241561E5780008678E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		0E5F19261561E5780008678E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -97,6 +99,7 @@
 				0EFCDD33156496E60031C071 /* round line.png */,
 				0EFCDD3D1564BFB60031C071 /* type2.png */,
 				0EFCDD3E1564BFB60031C071 /* type3.png */,
+				0E18F7491565B92200D5A067 /* iOS Simulator Screen shot May 18, 2012 10.51.52 AM.png */,
 				0EEE7FB915636D1800978FA2 /* Default.png */,
 				0E5F192A1561E5780008678E /* sketchi */,
 				0E5F19421561E5780008678E /* sketchiTests */,
@@ -247,6 +250,7 @@
 				0EFCDD34156496E60031C071 /* round line.png in Resources */,
 				0EFCDD3F1564BFB60031C071 /* type2.png in Resources */,
 				0EFCDD401564BFB60031C071 /* type3.png in Resources */,
+				0E18F74A1565B92200D5A067 /* iOS Simulator Screen shot May 18, 2012 10.51.52 AM.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,33 +10,36 @@
 #import <QuartzCore/QuartzCore.h>
 
 @interface sketchiViewController : UIViewController {
-    UIImageView *drawImage;
-    IBOutlet UIViewController *brushOptionMenu, *mainMenu;
-    IBOutlet UIButton *menu, *saveImage, *clear, *back, *brushOptionButton, *brush1, *brush2, *brush3, *cancelBrushMenu, *backToDrawingBrushMenu;
+    UIAccelerometer *tilter;
+    UIImageView *drawImage, *selectionLayer;
+    IBOutlet UIViewController *brushOptionMenu, *mainMenu, *tiltMenu;
+    IBOutlet UIButton *menu, *saveImage, *clear, *back, *brushOptionButton, *brush1, *brush2, *brush3, *cancelBrushMenu, *backToDrawingBrushMenu, *tiltMenuButton,*backToDrawingTiltMenu;
     IBOutlet UISlider *red, *green, *blue, *sizeSlider;
     IBOutlet UILabel *colourLabel;
-    IBOutlet UISwitch *cyclicSwitch;
+    IBOutlet UISwitch *cyclicSwitch, *tiltSwitch;
     int mouseMoved, brushOption;
-    BOOL mouseSwiped, rmax, gmax, bmax, bmin, gmin, rmin, cyclic, tiltDraw;
+    BOOL mouseSwiped, rmax, gmax, bmax, bmin, gmin, rmin, cyclic, tiltDraw, stamp;
     CGPoint lastPoint;
-    double b, r, g, brushSize;
+    double b, r, g, brushSize, accelX, accelY;
 }
-@property (nonatomic,retain) UIButton *menu, *saveImage, *clear, *back, *brushOptionButton, *brush1, *brush2, *brush3, *cancelBrushMenu, *backToDrawingBrushMenu;
-@property (nonatomic,retain) UIViewController *brushOptionMenu, *mainMenu;
+@property (nonatomic,retain) UIButton *menu, *saveImage, *clear, *back, *brushOptionButton, *brush1, *brush2, *brush3, *cancelBrushMenu, *backToDrawingBrushMenu, *tiltMenuButton, *backToDrawingTiltMenu;
+@property (nonatomic,retain) UIViewController *brushOptionMenu, *mainMenu, *tiltMenu;
 @property (nonatomic,retain) UISlider *red, *green, *blue, *sizeSlider;
 @property (nonatomic,retain) UILabel *colourLabel;
-@property (nonatomic,retain) UISwitch *cyclicSwitch;
+@property (nonatomic,retain) UISwitch *cyclicSwitch, *tiltSwitch;
 
 -(IBAction) brushOptionClick:(id)sender;
+-(IBAction) tiltMenuButton:(id)sender;
 -(IBAction) menuButtonClick:(id)sender;
 -(IBAction) saveButtonClick:(id)sender;
 -(IBAction) clearButtonClick:(id)sender;
 -(IBAction) backButtonClick:(id)sender;
 -(IBAction) cancelBrushMenuButtonClick:(id)sender;
--(IBAction) cyclicSwitchClick:(id)sender;
+-(IBAction) tiltSwitchClick:(id)sender;
 -(IBAction) colourSlider:(id)sender;
--(IBAction) backToDrawingBrushMenu:(id)sender;
+-(IBAction) backToDrawing:(id)sender;
 -(IBAction) brushType0:(id)sender;
 -(IBAction) brushType1:(id)sender;
 -(IBAction) brushType2:(id)sender;
+-(void) changeColour;
 @end
