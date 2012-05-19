@@ -12,27 +12,13 @@
 @implementation sketchiViewController
 
 
-@synthesize menu;
-@synthesize startNewDrawingButton;
-@synthesize saveImage;
-@synthesize clear;
-@synthesize back;
-@synthesize brushOptionButton;
-@synthesize brush1;
-@synthesize brush2;
-@synthesize brush3;
-@synthesize brushOptionMenu;
-@synthesize tiltMenu;
-@synthesize tiltMenuButton;
-@synthesize mainMenu;
-@synthesize drawScreen;
-@synthesize introScreen;
-@synthesize emptyView;
-@synthesize cancelBrushMenu;
-@synthesize backToDrawingBrushMenu, backToDrawingTiltMenu;
+
+@synthesize startNewDrawingButton, saveImage, clear, back, brushOptionButton, brush1, brush2, brush3, cancelBrushMenu, backToDrawingBrushMenu, backToDrawingTiltMenu, creditBackButton, tiltMenuButton, undoButton;
+@synthesize brushOptionMenu, tiltMenu;
+@synthesize mainMenu, drawScreen, introScreen, creditScreen, emptyView, menu;
 @synthesize red, green, blue, sizeSlider;
 @synthesize colourLabel;
-@synthesize cyclicSwitch, tiltSwitch;
+@synthesize cyclicSwitch, tiltSwitch, stampMode;
 
 - (void) viewDidLoad {
     [super viewDidLoad];
@@ -44,6 +30,7 @@
     r = 0.0;
     b = 0.0;
     g = 0.0;
+    started = false;
     rmax = true;
     bmax = false;
     gmax = false;
@@ -56,8 +43,58 @@
     brushOption = 0;
     accelX = 0;
     accelY = 0;
+    undoCounter = 0;
+    count = 1;
+    
+    
 }
 
+-(IBAction)mainMenuButtonPressed:(id)sender{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning"
+                                                    message:@"Drawing will be erased when returning to main menu, do you wish to save first?"
+                                                   delegate:self
+                                          cancelButtonTitle:@"No"
+                                          otherButtonTitles:@"Yes", nil];
+    [alert show];
+
+    
+}
+
+- (void)alertView:(UIAlertView *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    // the user clicked one of the OK/Cancel buttons
+    if (buttonIndex == 1)
+    {
+        [self saveButtonClick:saveImage.self];
+    }
+    drawImage.image = nil;
+    [mainMenu.view removeFromSuperview];
+
+    /* add a new view for emptyView so that self.view can be overwritten*/
+    //[drawScreen.view removeFromSuperview];
+   //self.view = emptyView.view;
+    //[self.view setBackgroundColor:[UIColor colorWithRed:0 green:1 blue:0 alpha:1]];
+     //[self.view addSubview:introScreen.view];
+}
+
+-(IBAction)undo:(id)sender{
+    if(count>1){
+    [drawImage setImage:undoScreens[--undoCounter%6]];
+        count--;
+    }
+}
+
+-(IBAction)stampModeChange:(id)sender{
+    stamp = stampMode.on;
+}
+
+-(IBAction)creditMenu:(id)sender{
+    [self.view addSubview:creditScreen.view];
+}
+-(IBAction)backToMainMenu:(id)sender{
+    if(sender == creditBackButton.self){
+        [creditScreen.view removeFromSuperview];
+    }
+}
 -(IBAction)startNewImage:(id)sender{
     [introScreen.view removeFromSuperview];
     
@@ -66,9 +103,12 @@
     drawImage.frame = CGRectMake(10,36,self.view.frame.size.width -20, (self.view.frame.size.height-46)); 
     //for bug mode remove changes in x direction [possible future game mode]
     drawImage.backgroundColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:1];
-    
     self.view = drawScreen.view;
     [drawScreen.view addSubview:drawImage];
+    undoScreens[0] = drawImage.image;
+    started = true;
+    
+ 
     
 }
 
@@ -86,19 +126,29 @@
     }
 }
 -(void)touchesBegan:(NSSet *) touches withEvent:(UIEvent *)event {  
-
+    if(started){
     mouseSwiped = NO;
     UITouch *touch = [touches anyObject];
     lastPoint = [touch locationInView:drawImage];
+    if(!drawImage.hidden){
     [self changeColour];
         if(brushOption == 2){
         [self drawLine:lastPoint.x-1 :lastPoint.y-1];
     }else{
 	[self drawLine:lastPoint.x :lastPoint.y];
     }
-    
+    }
+}
 }
 
+-(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
+    
+    if(count<6){
+        count++;
+    }
+    undoScreens[++undoCounter%6] = drawImage.image;
+
+}
 -(IBAction)tiltMenuButton:(id)sender{
     [self.view addSubview:tiltMenu.view];
 }
@@ -139,7 +189,7 @@
     menu.hidden = 0;
     saveImage.hidden = 0;
     clear.hidden = 0;
-    
+    undoButton.hidden = 0;
     
     cyclic = cyclicSwitch.on;
     if(cyclic){
@@ -163,12 +213,18 @@
 }
 
 -(IBAction)tiltSwitchClick:(id)sender{
-    tiltDraw = tiltSwitch.isEnabled;
+    tiltDraw = tiltSwitch.on;
 }
 
 
 -(IBAction)cancelBrushMenuButtonClick:(id)sender{
     [brushOptionMenu.view removeFromSuperview];
+    cyclic = cyclicSwitch.on;
+    if(cyclic){
+        r = 1.0;
+        b = 0.0;
+        g = 0.0;
+    }
 }
 
 -(IBAction) brushOptionClick:(id)sender{
@@ -182,67 +238,25 @@
     menu.hidden = 0;
     saveImage.hidden = 0;
     clear.hidden = 0;
+    undoButton.hidden =0;
     [mainMenu.view removeFromSuperview];
     
 }
 
 -(IBAction) menuButtonClick:(id)sender{
+    //These need to be updated to change with view controllers instead of hiding the buttons in the final, this is messy at the moment
     drawImage.hidden = 1;
     menu.hidden = 1;
     saveImage.hidden = 1;
     clear.hidden = 1;
+    undoButton.hidden = 1;
     [self.view addSubview:mainMenu.view];
    
 }
 
 -(IBAction) clearButtonClick:(id)sender {
     drawImage.image = nil;
-    /*selectionLayer.frame = drawImage.frame;
-    selectionLayer.image = drawImage.image;
-    [self.view addSubview:selectionLayer];
-    drawImage.hidden = true;
-    
-    / *********************test* /
-    
-    UIGraphicsBeginImageContext(self.view.frame.size);
-    [selectionLayer.image drawInRect:CGRectMake(0, 0, drawImage.frame.size.width, drawImage.frame.size.height)]; //originally self.frame.size.width, self.frame.size.height)];
-    if(brushOption == 0){
-        
-        
-        CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound); //kCGLineCapSquare, kCGLineCapButt, kCGLineCapRound
     }
-    if(brushOption == 1){
-        CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapSquare); //kCGLineCapSquare, kCGLineCapButt, kCGLineCapRound
-    }
-    if(brushOption == 2){
-        CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapButt); //kCGLineCapSquare, kCGLineCapButt, kCGLineCapRound
-    }
-    CGContextSetLineWidth(UIGraphicsGetCurrentContext(), 100); // for size
-    CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext(), 0, 0, 0, 1.0); //values for R, G, B, and Alpha
-    CGContextBeginPath(UIGraphicsGetCurrentContext());
-    if(stamp){
-        CGContextMoveToPoint(UIGraphicsGetCurrentContext(), 100,100);
-    }else{
-        CGContextMoveToPoint(UIGraphicsGetCurrentContext(), lastPoint.x, lastPoint.y);
-        CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), 100, 100);
-    }
-    CGContextStrokePath(UIGraphicsGetCurrentContext());
-    selectionLayer.image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    lastPoint.x = 100;
-    lastPoint.y = 100;
-    
-    mouseMoved++;
-    
-    if (mouseMoved == 10) {
-        mouseMoved = 0;
-    }
-    red.value = r;
-    green.value = g;
-    blue.value =b;
-*/
-}
 
 -(IBAction) saveButtonClick:(id)sender {
 /*
@@ -353,6 +367,7 @@
     CGContextBeginPath(UIGraphicsGetCurrentContext());
     if(stamp){
         CGContextMoveToPoint(UIGraphicsGetCurrentContext(), x, y);
+        CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), x, y);
     }else{
         CGContextMoveToPoint(UIGraphicsGetCurrentContext(), lastPoint.x, lastPoint.y);
         CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), x, y);
@@ -376,7 +391,7 @@
     
 }
 -(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
-    
+    if(started){
     if(!drawImage.hidden && !stamp){
         [self changeColour];
         mouseSwiped = YES;
@@ -385,7 +400,7 @@
         [self drawLine:currentPoint.x:currentPoint.y];
            }
 }
-   
+}
 - (void)didReceiveMemoryWarning {
         // Releases the view if it doesn't have a superview.
         [super didReceiveMemoryWarning];
