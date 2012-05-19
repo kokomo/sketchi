@@ -12,8 +12,8 @@
 @interface sketchiViewController : UIViewController {
     UIAccelerometer *tilter;
     UIImageView *drawImage, *selectionLayer;
-    IBOutlet UIViewController *brushOptionMenu, *mainMenu, *tiltMenu;
-    IBOutlet UIButton *menu, *saveImage, *clear, *back, *brushOptionButton, *brush1, *brush2, *brush3, *cancelBrushMenu, *backToDrawingBrushMenu, *tiltMenuButton,*backToDrawingTiltMenu;
+    IBOutlet UIViewController *brushOptionMenu, *mainMenu, *tiltMenu, *drawScreen, *introScreen, *emptyView;
+    IBOutlet UIButton *menu, *saveImage, *clear, *back, *brushOptionButton, *brush1, *brush2, *brush3, *cancelBrushMenu, *backToDrawingBrushMenu, *tiltMenuButton,*backToDrawingTiltMenu, *startNewDrawingButton;
     IBOutlet UISlider *red, *green, *blue, *sizeSlider;
     IBOutlet UILabel *colourLabel;
     IBOutlet UISwitch *cyclicSwitch, *tiltSwitch;
@@ -22,8 +22,8 @@
     CGPoint lastPoint;
     double b, r, g, brushSize, accelX, accelY;
 }
-@property (nonatomic,retain) UIButton *menu, *saveImage, *clear, *back, *brushOptionButton, *brush1, *brush2, *brush3, *cancelBrushMenu, *backToDrawingBrushMenu, *tiltMenuButton, *backToDrawingTiltMenu;
-@property (nonatomic,retain) UIViewController *brushOptionMenu, *mainMenu, *tiltMenu;
+@property (nonatomic,retain) UIButton *menu, *saveImage, *clear, *back, *brushOptionButton, *brush1, *brush2, *brush3, *cancelBrushMenu, *backToDrawingBrushMenu, *tiltMenuButton, *backToDrawingTiltMenu, *startNewDrawingButton;
+@property (nonatomic,retain) UIViewController *brushOptionMenu, *mainMenu, *tiltMenu, *drawScreen, *introScreen, *emptyView;
 @property (nonatomic,retain) UISlider *red, *green, *blue, *sizeSlider;
 @property (nonatomic,retain) UILabel *colourLabel;
 @property (nonatomic,retain) UISwitch *cyclicSwitch, *tiltSwitch;

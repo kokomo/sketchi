@@ -13,6 +13,7 @@
 
 
 @synthesize menu;
+@synthesize startNewDrawingButton;
 @synthesize saveImage;
 @synthesize clear;
 @synthesize back;
@@ -24,6 +25,9 @@
 @synthesize tiltMenu;
 @synthesize tiltMenuButton;
 @synthesize mainMenu;
+@synthesize drawScreen;
+@synthesize introScreen;
+@synthesize emptyView;
 @synthesize cancelBrushMenu;
 @synthesize backToDrawingBrushMenu, backToDrawingTiltMenu;
 @synthesize red, green, blue, sizeSlider;
@@ -32,11 +36,8 @@
 
 - (void) viewDidLoad {
     [super viewDidLoad];
-    drawImage = [[UIImageView alloc] initWithImage:nil];
-    selectionLayer = [[UIImageView alloc] initWithImage:nil];
-    drawImage.frame = CGRectMake(10,36,self.view.frame.size.width-20, (self.view.frame.size.height-46));
-    drawImage.backgroundColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:1];
-    [self.view addSubview:drawImage];
+    [self.view addSubview:introScreen.view];
+    
     mouseMoved = 0;
     brushSize = 10.0;
     [[UIAccelerometer sharedAccelerometer]  setUpdateInterval:(1/20)];
@@ -57,6 +58,20 @@
     accelY = 0;
 }
 
+-(IBAction)startNewImage:(id)sender{
+    [introScreen.view removeFromSuperview];
+    
+    drawImage = [[UIImageView alloc] initWithImage:nil];
+    selectionLayer = [[UIImageView alloc] initWithImage:nil];
+    drawImage.frame = CGRectMake(10,36,self.view.frame.size.width -20, (self.view.frame.size.height-46)); 
+    //for bug mode remove changes in x direction [possible future game mode]
+    drawImage.backgroundColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:1];
+    
+    self.view = drawScreen.view;
+    [drawScreen.view addSubview:drawImage];
+    
+}
+
 - (void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration {
     if(tiltDraw && !drawImage.hidden){
         [self changeColour];
@@ -71,6 +86,7 @@
     }
 }
 -(void)touchesBegan:(NSSet *) touches withEvent:(UIEvent *)event {  
+
     mouseSwiped = NO;
     UITouch *touch = [touches anyObject];
     lastPoint = [touch locationInView:drawImage];
@@ -322,7 +338,7 @@
     
     //UIGraphicsBeginImageContext(self.view.frame.size); //weird bug mode - comment out next line 
     UIGraphicsBeginImageContext(drawImage.frame.size);
-    [drawImage.image drawInRect:CGRectMake(0, 0, drawImage.frame.size.width, drawImage.frame.size.height)]; //originally self.frame.size.width, self.frame.size.height)];
+    [drawImage.image drawInRect:CGRectMake(0, 0, drawImage.frame.size.width, drawImage.frame.size.height)]; 
     if(brushOption == 0){
         CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound); //kCGLineCapSquare, kCGLineCapButt, kCGLineCapRound
     }
