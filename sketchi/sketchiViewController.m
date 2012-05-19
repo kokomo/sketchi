@@ -90,24 +90,23 @@
 -(IBAction)brushType:(id)sender{
     if(brush1.self == sender){
         brushOption = 0;
-        //[brush1 setBackgroundImage:drawImage.image forState:UIControlStateNormal];
-        [brush1 setHighlighted:true];
-        [brush2 setHighlighted:false];
-        [brush3 setHighlighted:false];
+        [brush1 setBackgroundImage:[UIImage imageNamed:@"round line highlighted.png"] forState:UIControlStateNormal];
+        [brush2 setBackgroundImage:[UIImage imageNamed:@"type2.png"] forState:UIControlStateNormal];
+        [brush3 setBackgroundImage:[UIImage imageNamed:@"type3.png"] forState:UIControlStateNormal];
         
     }
     if(brush2.self == sender){
         brushOption = 1;
-        [brush1 setHighlighted:false];
-        [brush2 setHighlighted:true];
-        [brush3 setHighlighted:false];
+        [brush1 setBackgroundImage:[UIImage imageNamed:@"round line.png"] forState:UIControlStateNormal];
+        [brush2 setBackgroundImage:[UIImage imageNamed:@"type2 highlighted.png"] forState:UIControlStateNormal];
+        [brush3 setBackgroundImage:[UIImage imageNamed:@"type3.png"] forState:UIControlStateNormal];
         
     }
     if(brush3.self == sender){
         brushOption = 2;
-        [brush1 setHighlighted:false];
-        [brush2 setHighlighted:false];
-        [brush3 setHighlighted:true];
+        [brush1 setBackgroundImage:[UIImage imageNamed:@"round line.png"] forState:UIControlStateNormal];
+        [brush2 setBackgroundImage:[UIImage imageNamed:@"type2.png"] forState:UIControlStateNormal];
+        [brush3 setBackgroundImage:[UIImage imageNamed:@"type3 highlighted.png"] forState:UIControlStateNormal];
     }
 }
 
