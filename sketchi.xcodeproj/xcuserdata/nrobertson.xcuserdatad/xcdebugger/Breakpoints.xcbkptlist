@@ -8,11 +8,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "sketchi/sketchiViewController.m"
-         timestampString = "359188830.835755"
+         timestampString = "359192501.583096"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "497"
-         endingLineNumber = "497"
+         startingLineNumber = "505"
+         endingLineNumber = "505"
          landmarkName = "@implementation sketchiViewController"
          landmarkType = "3">
       </FileBreakpoint>
@@ -47,11 +47,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "sketchi/sketchiViewController.m"
-         timestampString = "359188830.835755"
+         timestampString = "359192501.583096"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "275"
-         endingLineNumber = "275"
+         startingLineNumber = "276"
+         endingLineNumber = "276"
          landmarkName = "-colourSlider:"
          landmarkType = "5">
       </FileBreakpoint>
