@@ -19,6 +19,7 @@
 @synthesize red, green, blue, sizeSlider;
 @synthesize colourLabel;
 @synthesize cyclicSwitch, tiltSwitch, stampMode;
+@synthesize backgoundPicker;
 
 - (void) viewDidLoad {
     [super viewDidLoad];
@@ -57,9 +58,61 @@
                                           otherButtonTitles:@"Yes", nil];
     [alert show];
 
+}
+
+
+-(IBAction) loadImageButtonClicked {
+    
+    backgroundPicker = [[UIImagePickerController alloc] init];
+    backgroundPicker.delegate = self;
+    
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
+        
+        backgroundPicker.sourceType = UIImagePickerControllerSourceTypeCamera;  
+    }else{
+        
+        backgroundPicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    }
+    [self presentModalViewController:backgroundPicker animated:YES];   
+    [self startNewImage:nil];
+}
+
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *) Picker {
+    
+    [Picker dismissModalViewControllerAnimated:YES];
     
 }
 
+- (void)imagePickerController:(UIImagePickerController *) Picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    backgroundImage = [info objectForKey:UIImagePickerControllerOriginalImage];
+    [Picker dismissModalViewControllerAnimated:YES];
+    drawImage.image = backgroundImage;
+    //Dont know why but if i call the start new image with background function in here the view dissappears. quick hack is call the method before icker shows up and then change the drawimage.image afterwards.
+}
+
+-(void) startNewImageWithBackground:(UIImage *) image{
+    [introScreen.view removeFromSuperview];
+    drawImage = [[UIImageView alloc] initWithImage:nil];
+    selectionLayer = [[UIImageView alloc] initWithImage:nil];
+    drawImage.frame = CGRectMake(10,36,self.view.frame.size.width -20, (self.view.frame.size.height-46)); 
+    //for bug mode remove changes in x direction [possible future game mode]
+    drawImage.image = image;
+    self.view = drawScreen.view;
+    [drawScreen.view addSubview:drawImage];
+    for(count = 0; count < 6; count++){
+        undoScreens[count] = drawImage.image;
+    }
+    count = 1;
+    started = true;
+    drawImage.hidden = 0;
+    menu.hidden = 0;
+    saveImage.hidden = 0;
+    clear.hidden = 0;
+    undoButton.hidden = 0;
+
+    
+}
 - (void)alertView:(UIAlertView *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     // the user clicked one of the OK/Cancel buttons
     if (buttonIndex == 1)
@@ -67,13 +120,14 @@
         [self saveButtonClick:saveImage.self];
     }
     drawImage.image = nil;
+    backgroundImage = nil;
     [mainMenu.view removeFromSuperview];
 
     /* add a new view for emptyView so that self.view can be overwritten*/
     //[drawScreen.view removeFromSuperview];
-   //self.view = emptyView.view;
+   self.view = emptyView.view;
     //[self.view setBackgroundColor:[UIColor colorWithRed:0 green:1 blue:0 alpha:1]];
-     //[self.view addSubview:introScreen.view];
+     [self.view addSubview:introScreen.view];
 }
 
 -(IBAction)undo:(id)sender{
@@ -95,18 +149,29 @@
         [creditScreen.view removeFromSuperview];
     }
 }
+
+
+//starts a new image and initializes the drawscreen and undo screens with nil image
 -(IBAction)startNewImage:(id)sender{
     [introScreen.view removeFromSuperview];
-    
     drawImage = [[UIImageView alloc] initWithImage:nil];
     selectionLayer = [[UIImageView alloc] initWithImage:nil];
     drawImage.frame = CGRectMake(10,36,self.view.frame.size.width -20, (self.view.frame.size.height-46)); 
     //for bug mode remove changes in x direction [possible future game mode]
     drawImage.backgroundColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:1];
+    backgroundImage = drawImage.image;
     self.view = drawScreen.view;
     [drawScreen.view addSubview:drawImage];
-    undoScreens[0] = drawImage.image;
+    for(count = 0; count < 6; count++){
+    undoScreens[count] = drawImage.image;
+    }
+    count = 1;
     started = true;
+    drawImage.hidden = 0;
+    menu.hidden = 0;
+    saveImage.hidden = 0;
+    clear.hidden = 0;
+    undoButton.hidden = 0;
     
  
     
@@ -132,14 +197,11 @@
     lastPoint = [touch locationInView:drawImage];
     if(!drawImage.hidden){
     [self changeColour];
-        if(brushOption == 2){
-        [self drawLine:lastPoint.x-1 :lastPoint.y-1];
-    }else{
 	[self drawLine:lastPoint.x :lastPoint.y];
     }
     }
 }
-}
+
 
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
     
@@ -255,7 +317,13 @@
 }
 
 -(IBAction) clearButtonClick:(id)sender {
-    drawImage.image = nil;
+    //to prevent accidental deletions
+    if(count<6){
+        count++;
+    }
+    undoScreens[++undoCounter%6] = drawImage.image;
+    undoScreens[++undoCounter%6] = backgroundImage;
+    drawImage.image = backgroundImage;
     }
 
 -(IBAction) saveButtonClick:(id)sender {
@@ -299,7 +367,7 @@
     if(cyclic){
         double step_size = 0.02;
         if(stamp){
-            step_size = 0.1;
+            step_size = 0.2;
         }
         if(bmax && !rmax && gmin){
             r += step_size;
@@ -367,7 +435,11 @@
     CGContextBeginPath(UIGraphicsGetCurrentContext());
     if(stamp){
         CGContextMoveToPoint(UIGraphicsGetCurrentContext(), x, y);
-        CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), x, y);
+        if(brushOption == 2){
+        CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), x-1, y-1);    
+        }else{
+        CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), x-1, y);
+        }
     }else{
         CGContextMoveToPoint(UIGraphicsGetCurrentContext(), lastPoint.x, lastPoint.y);
         CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), x, y);

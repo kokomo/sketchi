@@ -9,10 +9,11 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 
-@interface sketchiViewController : UIViewController {
+@interface sketchiViewController : UIViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate> {
     UIAccelerometer *tilter;
     UIImageView *drawImage, *selectionLayer;
-    UIImage *undoScreens[6];
+    UIImage *undoScreens[6], *backgroundImage;
+    UIImagePickerController *backgroundPicker;          
     IBOutlet UIViewController *brushOptionMenu, *mainMenu, *tiltMenu, *drawScreen, *introScreen, *emptyView, *creditScreen;
     IBOutlet UIButton *menu, *saveImage, *clear, *back, *brushOptionButton, *brush1, *brush2, *brush3, *cancelBrushMenu, *backToDrawingBrushMenu, *tiltMenuButton,*backToDrawingTiltMenu, *startNewDrawingButton, *creditBackButton, *undoButton;
     IBOutlet UISlider *red, *green, *blue, *sizeSlider;
@@ -28,6 +29,7 @@
 @property (nonatomic,retain) UISlider *red, *green, *blue, *sizeSlider;
 @property (nonatomic,retain) UILabel *colourLabel;
 @property (nonatomic,retain) UISwitch *cyclicSwitch, *tiltSwitch, *stampMode;
+@property (nonatomic,retain) UIImagePickerController *backgoundPicker;
 
 -(IBAction) brushOptionClick:(id)sender;
 -(IBAction) tiltMenuButton:(id)sender;
