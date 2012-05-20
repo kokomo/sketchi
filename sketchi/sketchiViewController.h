@@ -13,9 +13,10 @@
     UIAccelerometer *tilter;
     UIImageView *drawImage, *selectionLayer;
     UIImage *undoScreens[6], *backgroundImage;
-    UIImagePickerController *backgroundPicker;          
+    UIImagePickerController *backgroundPicker;
+    UIPopoverController *popoverController;
     IBOutlet UIViewController *brushOptionMenu, *mainMenu, *tiltMenu, *drawScreen, *introScreen, *emptyView, *creditScreen;
-    IBOutlet UIButton *menu, *saveImage, *clear, *back, *brushOptionButton, *brush1, *brush2, *brush3, *cancelBrushMenu, *backToDrawingBrushMenu, *tiltMenuButton,*backToDrawingTiltMenu, *startNewDrawingButton, *creditBackButton, *undoButton;
+    IBOutlet UIButton *menu, *saveImage, *clear, *back, *brushOptionButton, *brush1, *brush2, *brush3, *cancelBrushMenu, *backToDrawingBrushMenu, *tiltMenuButton,*backToDrawingTiltMenu, *startNewDrawingButton, *creditBackButton, *undoButton, *loadImageButton;
     IBOutlet UISlider *red, *green, *blue, *sizeSlider;
     IBOutlet UILabel *colourLabel;
     IBOutlet UISwitch *cyclicSwitch, *tiltSwitch, *stampMode;
@@ -29,7 +30,8 @@
 @property (nonatomic,retain) UISlider *red, *green, *blue, *sizeSlider;
 @property (nonatomic,retain) UILabel *colourLabel;
 @property (nonatomic,retain) UISwitch *cyclicSwitch, *tiltSwitch, *stampMode;
-@property (nonatomic,retain) UIImagePickerController *backgoundPicker;
+@property (nonatomic,retain) UIImagePickerController *backgroundPicker;
+@property (nonatomic,retain) UIPopoverController *popoverController;
 
 -(IBAction) brushOptionClick:(id)sender;
 -(IBAction) tiltMenuButton:(id)sender;

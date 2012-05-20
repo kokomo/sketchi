@@ -19,7 +19,8 @@
 @synthesize red, green, blue, sizeSlider;
 @synthesize colourLabel;
 @synthesize cyclicSwitch, tiltSwitch, stampMode;
-@synthesize backgoundPicker;
+@synthesize backgroundPicker;
+@synthesize popoverController;
 
 - (void) viewDidLoad {
     [super viewDidLoad];
@@ -47,6 +48,7 @@
     undoCounter = 0;
     count = 1;
     
+    self.contentSizeForViewInPopover = self.view.frame.size;
     
 }
 
@@ -61,7 +63,8 @@
 }
 
 
--(IBAction) loadImageButtonClicked {
+-(IBAction) loadImageButtonClicked: (id)sender {
+    
     
     backgroundPicker = [[UIImagePickerController alloc] init];
     backgroundPicker.delegate = self;
@@ -73,46 +76,48 @@
         
         backgroundPicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     }
-    [self presentModalViewController:backgroundPicker animated:YES];   
+
+    if([[UIDevice currentDevice].model hasPrefix:@"iPad"]){
+        self.popoverController = [[UIPopoverController alloc] initWithContentViewController:backgroundPicker];
+        [popoverController setPopoverContentSize:self.view.frame.size];
+        [self.popoverController presentPopoverFromRect:CGRectMake(0.0, 0.0, self.view.frame.size.width,1) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+        
+    }else{
     [self startNewImage:nil];
+    [self presentModalViewController:backgroundPicker animated:YES];
+    }
+      
+    
 }
 
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *) Picker {
-    
-    [Picker dismissModalViewControllerAnimated:YES];
+    if([[UIDevice currentDevice].model hasPrefix:@"iPad"]){
+    [self.popoverController dismissPopoverAnimated:YES];
+    }else{
+       [Picker dismissModalViewControllerAnimated:YES]; 
+    }
     
 }
 
 - (void)imagePickerController:(UIImagePickerController *) Picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     backgroundImage = [info objectForKey:UIImagePickerControllerOriginalImage];
-    [Picker dismissModalViewControllerAnimated:YES];
-    drawImage.image = backgroundImage;
-    //Dont know why but if i call the start new image with background function in here the view dissappears. quick hack is call the method before icker shows up and then change the drawimage.image afterwards.
-}
-
--(void) startNewImageWithBackground:(UIImage *) image{
-    [introScreen.view removeFromSuperview];
-    drawImage = [[UIImageView alloc] initWithImage:nil];
-    selectionLayer = [[UIImageView alloc] initWithImage:nil];
-    drawImage.frame = CGRectMake(10,36,self.view.frame.size.width -20, (self.view.frame.size.height-46)); 
-    //for bug mode remove changes in x direction [possible future game mode]
-    drawImage.image = image;
-    self.view = drawScreen.view;
-    [drawScreen.view addSubview:drawImage];
-    for(count = 0; count < 6; count++){
-        undoScreens[count] = drawImage.image;
-    }
-    count = 1;
-    started = true;
-    drawImage.hidden = 0;
-    menu.hidden = 0;
-    saveImage.hidden = 0;
-    clear.hidden = 0;
-    undoButton.hidden = 0;
-
     
+    if([[UIDevice currentDevice].model hasPrefix:@"iPad"]){
+    [self.popoverController dismissPopoverAnimated:YES];
+    [self startNewImage:nil];   
+    }else{
+        for(count = 0; count < 6; count++){
+            undoScreens[count] = backgroundImage;
+        }
+        count = 1;
+        drawImage.image = backgroundImage;
+    [Picker dismissModalViewControllerAnimated:YES];
+    }
+    
+    //Dont know why but if i call the start new image with background function in here the view dissappears for iphone. quick hack is to call the method before picker shows up and then change the drawimage.image afterwards.
 }
+
 - (void)alertView:(UIAlertView *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     // the user clicked one of the OK/Cancel buttons
     if (buttonIndex == 1)
@@ -154,12 +159,12 @@
 //starts a new image and initializes the drawscreen and undo screens with nil image
 -(IBAction)startNewImage:(id)sender{
     [introScreen.view removeFromSuperview];
-    drawImage = [[UIImageView alloc] initWithImage:nil];
+    drawImage = [[UIImageView alloc] initWithImage:backgroundImage];
     selectionLayer = [[UIImageView alloc] initWithImage:nil];
     drawImage.frame = CGRectMake(10,36,self.view.frame.size.width -20, (self.view.frame.size.height-46)); 
     //for bug mode remove changes in x direction [possible future game mode]
     drawImage.backgroundColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:1];
-    backgroundImage = drawImage.image;
+    //backgroundImage = drawImage.image;
     self.view = drawScreen.view;
     [drawScreen.view addSubview:drawImage];
     for(count = 0; count < 6; count++){
@@ -185,7 +190,6 @@
         int xValue, yValue;
         xValue = (int) (lastPoint.x + accelX);
         yValue = (int) (lastPoint.y + accelY);
-        drawImage.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1];
         [self drawLine:xValue :yValue];
         
     }
@@ -436,7 +440,13 @@
     if(stamp){
         CGContextMoveToPoint(UIGraphicsGetCurrentContext(), x, y);
         if(brushOption == 2){
-        CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), x-1, y-1);    
+            CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), x-1, y-1);
+            CGContextMoveToPoint(UIGraphicsGetCurrentContext(), x, y);
+            CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), x+1, y-1);
+            CGContextMoveToPoint(UIGraphicsGetCurrentContext(), x, y);
+            CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), x+1, y);
+            CGContextMoveToPoint(UIGraphicsGetCurrentContext(), x, y);
+            CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), x, y+1);
         }else{
         CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), x-1, y);
         }
