@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		0E124BEE15673AB100686003 /* type2 highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E124BEC15673AB100686003 /* type2 highlighted.png */; };
 		0E124BEF15673AB100686003 /* type3 highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E124BED15673AB100686003 /* type3 highlighted.png */; };
-		0E124BF215673DA600686003 /* title.png in Resources */ = {isa = PBXBuildFile; fileRef = 0E124BF115673DA600686003 /* title.png */; };
 		0E5F19251561E5780008678E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E5F19241561E5780008678E /* UIKit.framework */; };
 		0E5F19271561E5780008678E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E5F19261561E5780008678E /* Foundation.framework */; };
 		0E5F19291561E5780008678E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E5F19281561E5780008678E /* CoreGraphics.framework */; };
@@ -46,7 +45,6 @@
 /* Begin PBXFileReference section */
 		0E124BEC15673AB100686003 /* type2 highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "type2 highlighted.png"; sourceTree = SOURCE_ROOT; };
 		0E124BED15673AB100686003 /* type3 highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "type3 highlighted.png"; sourceTree = SOURCE_ROOT; };
-		0E124BF115673DA600686003 /* title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = title.png; sourceTree = SOURCE_ROOT; };
 		0E5F19201561E5780008678E /* sketchi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sketchi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E5F19241561E5780008678E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		0E5F19261561E5780008678E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -108,7 +106,6 @@
 				0EFCDD3D1564BFB60031C071 /* type2.png */,
 				0E124BEC15673AB100686003 /* type2 highlighted.png */,
 				0E124BED15673AB100686003 /* type3 highlighted.png */,
-				0E124BF115673DA600686003 /* title.png */,
 				0ECB3F241567427800ECBD46 /* title without background.png */,
 				0E9DB82A15661349007EE889 /* round line highlighted.png */,
 				0EFCDD3E1564BFB60031C071 /* type3.png */,
@@ -265,7 +262,6 @@
 				0E9DB82B15661349007EE889 /* round line highlighted.png in Resources */,
 				0E124BEE15673AB100686003 /* type2 highlighted.png in Resources */,
 				0E124BEF15673AB100686003 /* type3 highlighted.png in Resources */,
-				0E124BF215673DA600686003 /* title.png in Resources */,
 				0ECB3F251567427800ECBD46 /* title without background.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
