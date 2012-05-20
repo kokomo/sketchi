@@ -17,7 +17,7 @@
 @synthesize brushOptionMenu, tiltMenu;
 @synthesize mainMenu, drawScreen, introScreen, creditScreen, emptyView, menu;
 @synthesize red, green, blue, sizeSlider;
-@synthesize colourLabel;
+@synthesize colourLabel, currentColourLabel;
 @synthesize cyclicSwitch, tiltSwitch, stampMode;
 @synthesize backgroundPicker;
 @synthesize popoverController;
@@ -262,6 +262,7 @@
         r = 1.0;
         b = 0.0;
         g = 0.0;
+        [currentColourLabel setBackgroundColor:[UIColor colorWithRed:red.value green:green.value blue:blue.value alpha:1.0]];
     }
     
     [mainMenu.view removeFromSuperview];
@@ -272,7 +273,8 @@
 }
 
 -(IBAction)colourSlider:(id)sender{
-    [colourLabel setTextColor:[UIColor colorWithRed:red.value green:green.value blue:blue.value alpha:1.0]];
+    //[colourLabel setTextColor:[UIColor colorWithRed:red.value green:green.value blue:blue.value alpha:1.0]];
+    [currentColourLabel setBackgroundColor:[UIColor colorWithRed:red.value green:green.value blue:blue.value alpha:1.0]];
     r = red.value;
     b = blue.value;
     g = green.value;
@@ -284,13 +286,18 @@
 
 
 -(IBAction)cancelBrushMenuButtonClick:(id)sender{
+    if(sender == cancelBrushMenu.self){
     [brushOptionMenu.view removeFromSuperview];
+    }else{
+        [tiltMenu.view removeFromSuperview];
+    }
     cyclic = cyclicSwitch.on;
     if(cyclic){
         r = 1.0;
         b = 0.0;
         g = 0.0;
     }
+    
 }
 
 -(IBAction) brushOptionClick:(id)sender{
@@ -469,6 +476,7 @@
     red.value = r;
     green.value = g;
     blue.value =b;
+    [currentColourLabel setBackgroundColor:[UIColor colorWithRed:red.value green:green.value blue:blue.value alpha:1.0]];
 
     
 }

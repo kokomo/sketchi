@@ -18,7 +18,7 @@
     IBOutlet UIViewController *brushOptionMenu, *mainMenu, *tiltMenu, *drawScreen, *introScreen, *emptyView, *creditScreen;
     IBOutlet UIButton *menu, *saveImage, *clear, *back, *brushOptionButton, *brush1, *brush2, *brush3, *cancelBrushMenu, *backToDrawingBrushMenu, *tiltMenuButton,*backToDrawingTiltMenu, *startNewDrawingButton, *creditBackButton, *undoButton, *loadImageButton;
     IBOutlet UISlider *red, *green, *blue, *sizeSlider;
-    IBOutlet UILabel *colourLabel;
+    IBOutlet UILabel *colourLabel, *currentColourLabel;
     IBOutlet UISwitch *cyclicSwitch, *tiltSwitch, *stampMode;
     int mouseMoved, brushOption, undoCounter, count;
     BOOL mouseSwiped, rmax, gmax, bmax, bmin, gmin, rmin, cyclic, tiltDraw, stamp, started, change;
@@ -28,7 +28,7 @@
 @property (nonatomic,retain) UIButton *menu, *saveImage, *clear, *back, *brushOptionButton, *brush1, *brush2, *brush3, *cancelBrushMenu, *backToDrawingBrushMenu, *tiltMenuButton, *backToDrawingTiltMenu, *startNewDrawingButton, *creditBackButton, *undoButton;
 @property (nonatomic,retain) UIViewController *brushOptionMenu, *mainMenu, *tiltMenu, *drawScreen, *introScreen, *emptyView, *creditScreen;
 @property (nonatomic,retain) UISlider *red, *green, *blue, *sizeSlider;
-@property (nonatomic,retain) UILabel *colourLabel;
+@property (nonatomic,retain) UILabel *colourLabel, *currentColourLabel;
 @property (nonatomic,retain) UISwitch *cyclicSwitch, *tiltSwitch, *stampMode;
 @property (nonatomic,retain) UIImagePickerController *backgroundPicker;
 @property (nonatomic,retain) UIPopoverController *popoverController;
