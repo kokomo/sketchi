@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 
-@interface sketchiViewController : UIViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate> {
+@interface sketchiViewController : UIViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAccelerometerDelegate> {
     UIAccelerometer *tilter;
     UIImageView *drawImage, *selectionLayer;
     UIImage *undoScreens[6], *backgroundImage;
@@ -32,6 +32,7 @@
 @property (nonatomic,retain) UISwitch *cyclicSwitch, *tiltSwitch, *stampMode;
 @property (nonatomic,retain) UIImagePickerController *backgroundPicker;
 @property (nonatomic,retain) UIPopoverController *popoverController;
+@property (nonatomic, retain) UIAccelerometer *tilter;
 
 -(IBAction) brushOptionClick:(id)sender;
 -(IBAction) tiltMenuButton:(id)sender;

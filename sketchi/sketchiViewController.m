@@ -21,14 +21,18 @@
 @synthesize cyclicSwitch, tiltSwitch, stampMode;
 @synthesize backgroundPicker;
 @synthesize popoverController;
+@synthesize tilter;
 
 - (void) viewDidLoad {
     [super viewDidLoad];
     [self.view addSubview:introScreen.view];
     
+    self.tilter = [UIAccelerometer sharedAccelerometer];
+    self.tilter.updateInterval = .03;
+    self.tilter.delegate = self;
+    
     mouseMoved = 0;
     brushSize = 10.0;
-    [[UIAccelerometer sharedAccelerometer]  setUpdateInterval:(1/20)];
     r = 0.0;
     b = 0.0;
     g = 0.0;
@@ -69,15 +73,17 @@
     backgroundPicker = [[UIImagePickerController alloc] init];
     backgroundPicker.delegate = self;
     
+    if(sender == loadImageButton.self){
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
         
         backgroundPicker.sourceType = UIImagePickerControllerSourceTypeCamera;  
+    }
     }else{
         
         backgroundPicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     }
-
-    if([[UIDevice currentDevice].model hasPrefix:@"iPad"]){
+    
+    if([[UIDevice currentDevice].model isEqualToString:@"iPad"] || [[UIDevice currentDevice].model hasPrefix:@"iPad"]){ //iPhone has no uipopover controller support so this is for iPad
         self.popoverController = [[UIPopoverController alloc] initWithContentViewController:backgroundPicker];
         [popoverController setPopoverContentSize:self.view.frame.size];
         [self.popoverController presentPopoverFromRect:CGRectMake(0.0, 0.0, self.view.frame.size.width,1) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
@@ -92,7 +98,7 @@
 
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *) Picker {
-    if([[UIDevice currentDevice].model hasPrefix:@"iPad"]){
+    if([[UIDevice currentDevice].model isEqualToString:@"iPad"] || [[UIDevice currentDevice].model hasPrefix:@"iPad"]){
     [self.popoverController dismissPopoverAnimated:YES];
     }else{
        [Picker dismissModalViewControllerAnimated:YES]; 
@@ -103,7 +109,7 @@
 - (void)imagePickerController:(UIImagePickerController *) Picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     backgroundImage = [info objectForKey:UIImagePickerControllerOriginalImage];
     
-    if([[UIDevice currentDevice].model hasPrefix:@"iPad"]){
+    if([[UIDevice currentDevice].model isEqualToString:@"iPad"] || [[UIDevice currentDevice].model hasPrefix:@"iPad"]){
     [self.popoverController dismissPopoverAnimated:YES];
     [self startNewImage:nil];   
     }else{
@@ -185,11 +191,25 @@
 - (void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration {
     if(tiltDraw && !drawImage.hidden){
         [self changeColour];
-        accelX = (acceleration.x * kFilteringFactor) + (accelX * (1.0 - kFilteringFactor));
-        accelY = (acceleration.y * kFilteringFactor) + (accelY * (1.0 - kFilteringFactor));
+        accelX = -5*acceleration.x;
+        accelY = 5*acceleration.y;         
         int xValue, yValue;
-        xValue = (int) (lastPoint.x + accelX);
-        yValue = (int) (lastPoint.y + accelY);
+        xValue = (int) (lastPoint.x - accelX);
+        yValue = (int) (lastPoint.y - accelY);
+        
+        if(xValue > drawScreen.view.frame.size.width -20){
+            xValue = drawScreen.view.frame.size.width -20;
+        }
+        if(xValue < 0){
+            xValue = 0;
+        }
+        if(yValue > drawScreen.view.frame.size.height -46){
+            yValue = drawScreen.view.frame.size.height -46;
+        }
+        if(yValue < 0){
+            yValue = 0;
+        }
+        
         [self drawLine:xValue :yValue];
         
     }
@@ -470,8 +490,8 @@
     
     mouseMoved++;
     
-    if (mouseMoved == 10) {
-        mouseMoved = 0;
+    if (mouseMoved == 5) {
+       mouseMoved = 0;
     }
     red.value = r;
     green.value = g;
