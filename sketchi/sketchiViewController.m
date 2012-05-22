@@ -13,15 +13,17 @@
 
 
 
-@synthesize startNewDrawingButton, saveImage, clear, back, brushOptionButton, brush1, brush2, brush3, cancelBrushMenu, backToDrawingBrushMenu, backToDrawingTiltMenu, creditBackButton, tiltMenuButton, undoButton;
+@synthesize startNewDrawingButton, saveImage, clear, back, brushOptionButton, brush1, brush2, brush3, cancelBrushMenu, backToDrawingBrushMenu, backToDrawingTiltMenu, creditBackButton, tiltMenuButton, undoButton, stampMenuButton, backToDrawingStampMenu;
 @synthesize brushOptionMenu, tiltMenu;
-@synthesize mainMenu, drawScreen, introScreen, creditScreen, emptyView, menu;
-@synthesize red, green, blue, sizeSlider;
+@synthesize mainMenu, drawScreen, introScreen, creditScreen, emptyView, menu, stampScreen;
+@synthesize red, green, blue, sizeSlider, alphaSlider;
 @synthesize colourLabel, currentColourLabel;
-@synthesize cyclicSwitch, tiltSwitch, stampMode;
+@synthesize cyclicSwitch, tiltSwitch, stampMode, pictureStamp;
 @synthesize backgroundPicker;
 @synthesize popoverController;
 @synthesize tilter;
+
+
 
 - (void) viewDidLoad {
     [super viewDidLoad];
@@ -31,11 +33,13 @@
     self.tilter.updateInterval = .03;
     self.tilter.delegate = self;
     
+    pictureToStamp = nil;
     mouseMoved = 0;
     brushSize = 10.0;
     r = 0.0;
     b = 0.0;
     g = 0.0;
+    alpha = 1.0;
     started = false;
     rmax = true;
     bmax = false;
@@ -45,7 +49,8 @@
     gmin = true;
     cyclic = false;
     tiltDraw = false;
-    stamp = false;
+    stampBrush = false;
+    stampPicture = false;
     brushOption = 0;
     accelX = 0;
     accelY = 0;
@@ -63,9 +68,13 @@
                                           cancelButtonTitle:@"No"
                                           otherButtonTitles:@"Yes", nil];
     [alert show];
-
+    
 }
 
+-(IBAction)setStampPicture:(id)sender{
+    UIButton* picked = (UIButton*)sender;
+    pictureToStamp = picked.imageView.image;
+}
 
 -(IBAction) loadImageButtonClicked: (id)sender {
     
@@ -74,10 +83,10 @@
     backgroundPicker.delegate = self;
     
     if(sender == loadImageButton.self){
-    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
-        
-        backgroundPicker.sourceType = UIImagePickerControllerSourceTypeCamera;  
-    }
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
+            
+            backgroundPicker.sourceType = UIImagePickerControllerSourceTypeCamera;  
+        }
     }else{
         
         backgroundPicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
@@ -89,19 +98,19 @@
         [self.popoverController presentPopoverFromRect:CGRectMake(0.0, 0.0, self.view.frame.size.width,1) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
         
     }else{
-    [self startNewImage:nil];
-    [self presentModalViewController:backgroundPicker animated:YES];
+        [self startNewImage:nil];
+        [self presentModalViewController:backgroundPicker animated:YES];
     }
-      
+    
     
 }
 
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *) Picker {
     if([[UIDevice currentDevice].model isEqualToString:@"iPad"] || [[UIDevice currentDevice].model hasPrefix:@"iPad"]){
-    [self.popoverController dismissPopoverAnimated:YES];
+        [self.popoverController dismissPopoverAnimated:YES];
     }else{
-       [Picker dismissModalViewControllerAnimated:YES]; 
+        [Picker dismissModalViewControllerAnimated:YES]; 
     }
     
 }
@@ -110,15 +119,15 @@
     backgroundImage = [info objectForKey:UIImagePickerControllerOriginalImage];
     
     if([[UIDevice currentDevice].model isEqualToString:@"iPad"] || [[UIDevice currentDevice].model hasPrefix:@"iPad"]){
-    [self.popoverController dismissPopoverAnimated:YES];
-    [self startNewImage:nil];   
+        [self.popoverController dismissPopoverAnimated:YES];
+        [self startNewImage:nil];   
     }else{
         for(count = 0; count < 6; count++){
             undoScreens[count] = backgroundImage;
         }
         count = 1;
         drawImage.image = backgroundImage;
-    [Picker dismissModalViewControllerAnimated:YES];
+        [Picker dismissModalViewControllerAnimated:YES];
     }
     
     //Dont know why but if i call the start new image with background function in here the view dissappears for iphone. quick hack is to call the method before picker shows up and then change the drawimage.image afterwards.
@@ -133,23 +142,23 @@
     drawImage.image = nil;
     backgroundImage = nil;
     [mainMenu.view removeFromSuperview];
-
+    
     /* add a new view for emptyView so that self.view can be overwritten*/
     //[drawScreen.view removeFromSuperview];
-   self.view = emptyView.view;
+    self.view = emptyView.view;
     //[self.view setBackgroundColor:[UIColor colorWithRed:0 green:1 blue:0 alpha:1]];
-     [self.view addSubview:introScreen.view];
+    [self.view addSubview:introScreen.view];
 }
 
 -(IBAction)undo:(id)sender{
     if(count>1){
-    [drawImage setImage:undoScreens[--undoCounter%6]];
+        [drawImage setImage:undoScreens[--undoCounter%6]];
         count--;
     }
 }
 
 -(IBAction)stampModeChange:(id)sender{
-    stamp = stampMode.on;
+    stampBrush = stampMode.on;
 }
 
 -(IBAction)creditMenu:(id)sender{
@@ -174,7 +183,7 @@
     self.view = drawScreen.view;
     [drawScreen.view addSubview:drawImage];
     for(count = 0; count < 6; count++){
-    undoScreens[count] = drawImage.image;
+        undoScreens[count] = drawImage.image;
     }
     count = 1;
     started = true;
@@ -184,7 +193,7 @@
     clear.hidden = 0;
     undoButton.hidden = 0;
     
- 
+    
     
 }
 
@@ -209,20 +218,34 @@
         if(yValue < 0){
             yValue = 0;
         }
-        
+        if(stampPicture){
+            [self drawStamp:xValue :yValue];
+        }else{
         [self drawLine:xValue :yValue];
-        
+        }
     }
+}
+
+-(void)drawStamp:(int)x:(int)y{
+        
+        drawImage.image = [self addImages:drawImage.image:pictureToStamp:x:y];
+    lastPoint.x = x;
+    lastPoint.y = y;
+    
 }
 -(void)touchesBegan:(NSSet *) touches withEvent:(UIEvent *)event {  
     if(started){
-    mouseSwiped = NO;
-    UITouch *touch = [touches anyObject];
-    lastPoint = [touch locationInView:drawImage];
-    if(!drawImage.hidden){
-    [self changeColour];
-	[self drawLine:lastPoint.x :lastPoint.y];
-    }
+        mouseSwiped = NO;
+        UITouch *touch = [touches anyObject];
+        lastPoint = [touch locationInView:drawImage];
+        if(!drawImage.hidden && stampPicture){
+            [self drawStamp:lastPoint.x :lastPoint.y];
+        }else{
+            if(!drawImage.hidden && stampBrush){
+                [self changeColour];
+                [self drawLine:lastPoint.x :lastPoint.y];
+            }
+        }
     }
 }
 
@@ -233,7 +256,7 @@
         count++;
     }
     undoScreens[++undoCounter%6] = drawImage.image;
-
+    
 }
 -(IBAction)tiltMenuButton:(id)sender{
     [self.view addSubview:tiltMenu.view];
@@ -266,10 +289,13 @@
 
 -(IBAction)backToDrawing:(id)sender{
     if(backToDrawingBrushMenu.self == sender){
-    [brushOptionMenu.view removeFromSuperview];
+        [brushOptionMenu.view removeFromSuperview];
     }
     if(backToDrawingTiltMenu.self == sender){
-    [tiltMenu.view removeFromSuperview];
+        [tiltMenu.view removeFromSuperview];
+    }
+    if(backToDrawingStampMenu.self == sender){
+        [stampScreen.view removeFromSuperview];
     }
     drawImage.hidden = 0;
     menu.hidden = 0;
@@ -294,20 +320,24 @@
 
 -(IBAction)colourSlider:(id)sender{
     //[colourLabel setTextColor:[UIColor colorWithRed:red.value green:green.value blue:blue.value alpha:1.0]];
-    [currentColourLabel setBackgroundColor:[UIColor colorWithRed:red.value green:green.value blue:blue.value alpha:1.0]];
+    [currentColourLabel setBackgroundColor:[UIColor colorWithRed:red.value green:green.value blue:blue.value alpha:alphaSlider.value]];
     r = red.value;
     b = blue.value;
     g = green.value;
+    alpha = alphaSlider.value;
 }
 
--(IBAction)tiltSwitchClick:(id)sender{
+-(IBAction)switchClick:(id)sender{
     tiltDraw = tiltSwitch.on;
+    cyclic = cyclicSwitch.on;
+    stampBrush = stampMode.on;
+    stampPicture = pictureStamp.on;
 }
 
 
 -(IBAction)cancelBrushMenuButtonClick:(id)sender{
     if(sender == cancelBrushMenu.self){
-    [brushOptionMenu.view removeFromSuperview];
+        [brushOptionMenu.view removeFromSuperview];
     }else{
         [tiltMenu.view removeFromSuperview];
     }
@@ -320,9 +350,16 @@
     
 }
 
--(IBAction) brushOptionClick:(id)sender{
-    [self.view addSubview:brushOptionMenu.view];
-    
+-(IBAction) fromMenuClick:(id)sender{
+    if(sender == brushOptionButton){
+        [self.view addSubview:brushOptionMenu.view];
+    }
+    if(sender == tiltMenuButton){
+        [self.view addSubview:tiltMenu.view];
+    }
+    if(sender == stampMenuButton){
+        [self.view addSubview:stampScreen.view];
+    }
     
 }
 -(IBAction) backButtonClick:(id)sender{
@@ -344,7 +381,7 @@
     clear.hidden = 1;
     undoButton.hidden = 1;
     [self.view addSubview:mainMenu.view];
-   
+    
 }
 
 -(IBAction) clearButtonClick:(id)sender {
@@ -355,19 +392,19 @@
     undoScreens[++undoCounter%6] = drawImage.image;
     undoScreens[++undoCounter%6] = backgroundImage;
     drawImage.image = backgroundImage;
-    }
+}
 
 -(IBAction) saveButtonClick:(id)sender {
-/*
-        UIGraphicsBeginImageContext(drawImage.frame.size);
-        CGContextRef context = UIGraphicsGetCurrentContext();
-        [drawImage.layer renderInContext:context];
-        UIImage *screenShot = UIGraphicsGetImageFromCurrentImageContext();
-    / *
-        CGRect rect = drawImage.frame;
-        screenShot = [self crop:rect :screenShot];
-        UIGraphicsEndImageContext();
-         */
+    /*
+     UIGraphicsBeginImageContext(drawImage.frame.size);
+     CGContextRef context = UIGraphicsGetCurrentContext();
+     [drawImage.layer renderInContext:context];
+     UIImage *screenShot = UIGraphicsGetImageFromCurrentImageContext();
+     / *
+     CGRect rect = drawImage.frame;
+     screenShot = [self crop:rect :screenShot];
+     UIGraphicsEndImageContext();
+     */
     UIImageWriteToSavedPhotosAlbum(drawImage.image, nil, nil, nil); 
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Drawing Saved"
                                                     message:@"Your drawing has been saved to the photo album."
@@ -375,29 +412,29 @@
                                           cancelButtonTitle:@"OK"
                                           otherButtonTitles:nil];
     [alert show];
-
+    
 }
 
 
 
 -(UIImage *) crop:(CGRect)rect:(UIImage *)image{
     /*CGFloat scale = [[UIScreen mainScreen] scale];
-    
-    if (scale>1.0) {        
-        rect = CGRectMake(rect.origin.x*scale , rect.origin.y*scale, rect.size.width*scale, rect.size.height*scale);        
-    }
-    */
+     
+     if (scale>1.0) {        
+     rect = CGRectMake(rect.origin.x*scale , rect.origin.y*scale, rect.size.width*scale, rect.size.height*scale);        
+     }
+     */
     CGImageRef imageRef = CGImageCreateWithImageInRect([image CGImage], rect);
     UIImage *result = [UIImage imageWithCGImage:imageRef]; 
     CGImageRelease(imageRef);
     return result;
-
-}
     
+}
+
 -(void)changeColour{
     if(cyclic){
         double step_size = 0.02;
-        if(stamp){
+        if(stampBrush){
             step_size = 0.2;
         }
         if(bmax && !rmax && gmin){
@@ -447,6 +484,26 @@
     
 }
 
+
+- (UIImage*) addImages:(UIImage*)background :(UIImage*)toPaste:(int)x:(int)y
+{
+    CGSize size = drawScreen.view.frame.size;
+    UIGraphicsBeginImageContext(size);
+    
+    
+    CGPoint thumbPoint = CGPointMake(0, 0);
+    [background drawAtPoint:thumbPoint];
+    
+    CGPoint stampPoint = CGPointMake(x-(toPaste.size.width/2), y-(toPaste.size.height/2));
+    [toPaste drawAtPoint:stampPoint];
+    
+    UIImage* result = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    CGRect cropped = CGRectMake(-20, -46, size.width, size.height);
+    return [self crop:cropped:result];
+}
+
 -(void) drawLine:(int)x:(int)y{
     
     //UIGraphicsBeginImageContext(self.view.frame.size); //weird bug mode - comment out next line 
@@ -462,10 +519,11 @@
         CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapButt); //kCGLineCapSquare, kCGLineCapButt, kCGLineCapRound
     }
     CGContextSetLineWidth(UIGraphicsGetCurrentContext(), brushSize); // for size
-    CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext(), r, g, b, 1.0); //values for R, G, B, and Alpha
+    CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext(), r, g, b, alpha); //values for R, G, B, and Alpha
     CGContextBeginPath(UIGraphicsGetCurrentContext());
-    if(stamp){
+    if(stampBrush){
         CGContextMoveToPoint(UIGraphicsGetCurrentContext(), x, y);
+        
         if(brushOption == 2){
             CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), x-1, y-1);
             CGContextMoveToPoint(UIGraphicsGetCurrentContext(), x, y);
@@ -475,12 +533,13 @@
             CGContextMoveToPoint(UIGraphicsGetCurrentContext(), x, y);
             CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), x, y+1);
         }else{
-        CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), x-1, y);
+            CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), x-1, y);
         }
-    }else{
-        CGContextMoveToPoint(UIGraphicsGetCurrentContext(), lastPoint.x, lastPoint.y);
-        CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), x, y);
-}
+    }
+    
+    CGContextMoveToPoint(UIGraphicsGetCurrentContext(), lastPoint.x, lastPoint.y);
+    CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), x, y);
+    
     CGContextStrokePath(UIGraphicsGetCurrentContext());
     drawImage.image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
@@ -491,39 +550,41 @@
     mouseMoved++;
     
     if (mouseMoved == 5) {
-       mouseMoved = 0;
+        mouseMoved = 0;
     }
     red.value = r;
     green.value = g;
     blue.value =b;
-    [currentColourLabel setBackgroundColor:[UIColor colorWithRed:red.value green:green.value blue:blue.value alpha:1.0]];
-
+    [currentColourLabel setBackgroundColor:[UIColor colorWithRed:red.value green:green.value blue:blue.value alpha:alpha]];
+    
     
 }
 -(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
     if(started){
-    if(!drawImage.hidden && !stamp){
-        [self changeColour];
-        mouseSwiped = YES;
-        UITouch *touch = [touches anyObject];	
-        CGPoint currentPoint = [touch locationInView:drawImage];
-        [self drawLine:currentPoint.x:currentPoint.y];
-           }
-}
+        if(!drawImage.hidden && !stampBrush && !stampPicture){
+            [self changeColour];
+            mouseSwiped = YES;
+            UITouch *touch = [touches anyObject];	
+            CGPoint currentPoint = [touch locationInView:drawImage];
+            [self drawLine:currentPoint.x:currentPoint.y];
+        }
+    }
 }
 - (void)didReceiveMemoryWarning {
-        // Releases the view if it doesn't have a superview.
-        [super didReceiveMemoryWarning];
-        
-        // Release any cached data, images, etc that aren't in use.
-    }
+    // Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
     
-    - (void)viewDidUnload {
-        // Release any retained subviews of the main view.
-        // e.g. self.myOutlet = nil;
-    }
-    
-    
+    // Release any cached data, images, etc that aren't in use.
+}
+
+- (void)viewDidUnload {
+    // Release any retained subviews of the main view.
+    // e.g. self.myOutlet = nil;
+}
+
+
+
+
 
 
 @end
